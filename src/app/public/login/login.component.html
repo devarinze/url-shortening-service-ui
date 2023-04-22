@@ -1,0 +1,54 @@
+<div class="h-screen w-full flex justify-center items-center relative">
+  <div class="flex flex-col p-5 shadow-lg rounded bg-white z-10 mx-5 card-wrapper">
+    <b class="text-center text-4xl text-pink-900 tracking-wide mb-3">Welcome</b>
+    <div *ngIf="isLogin else signUpBlock">
+      <form [formGroup]="logInForm" nz-form>
+        <app-form-group label="Email" [required]="true">
+          <input class="form-input" formControlName="userName" type="text"/>
+          <app-form-error [control]="logInForm.get('userName')" label="Email"></app-form-error>
+        </app-form-group>
+        <app-form-group label="Password" [required]="true">
+          <input class="form-input" formControlName="password" type="password"/>
+          <app-form-error [control]="logInForm.get('password')" label="Password"></app-form-error>
+        </app-form-group>
+        <button class="bg-pink-800 hover:bg-pink-900 text-white font-bold text-base mt-2 h-12 w-full rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="logIn()" [disabled]="!logInForm.valid || busy" [nzLoading]="busy" nz-button>
+          Log In
+        </button>
+        <div class="mt-4 text-sm text-center">Don't have an account? <span class="font-bold text-pink-900 cursor-pointer" (click)="switchForms()">Sign Up</span></div>
+      </form>
+    </div>
+    <ng-template #signUpBlock>
+      <div>
+        <form [formGroup]="signUpForm" nz-form>
+          <app-form-group label="First Name" [required]="true">
+            <input class="form-input" formControlName="firstName" type="text"/>
+            <app-form-error [control]="signUpForm.get('firstName')" label="First Name"></app-form-error>
+          </app-form-group>
+          <app-form-group label="Last Name" [required]="true">
+            <input class="form-input" formControlName="lastName" type="text"/>
+            <app-form-error [control]="signUpForm.get('lastName')" label="Last Name"></app-form-error>
+          </app-form-group>
+          <app-form-group label="Email" [required]="true">
+            <input class="form-input" formControlName="userName" type="text"/>
+            <app-form-error [control]="signUpForm.get('userName')" label="Email"></app-form-error>
+          </app-form-group>
+          <app-form-group label="Password" [required]="true">
+            <input class="form-input" formControlName="password" type="password"/>
+            <app-form-error [control]="signUpForm.get('password')" label="Password"></app-form-error>
+          </app-form-group>
+          <app-form-group label="Confirm Password" [required]="true">
+            <input class="form-input" formControlName="confirmPassword" type="password"/>
+            <app-form-error [control]="signUpForm.get('confirmPassword')" label="Password"></app-form-error>
+          </app-form-group>
+          <button class="bg-pink-800 hover:bg-pink-900 text-white font-bold text-base mt-2 h-12 w-full rounded focus:outline-none focus:shadow-outline"
+                  type="button" (click)="signUp()" [disabled]="!signUpForm.valid || busy" [nzLoading]="busy" nz-button>
+            Sign Up
+          </button>
+          <div class="font-bold text-pink-900 cursor-pointer mt-4 text-sm text-center" (click)="switchForms()">Back</div>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+  <div class='w-full absolute bg-pink-900 h-44 diagonal-pane'></div>
+</div>
