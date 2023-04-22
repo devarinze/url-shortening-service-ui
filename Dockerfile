@@ -1,10 +1,9 @@
 FROM node:16-alpine AS build
 WORKDIR /app
 
-COPY . .
+COPY . /app
 RUN npm install
-RUN ls -la /app/src/environments/
-RUN npm run build
+RUN npm run build --prod
 
 # Serve Application using Nginx Server
 FROM nginx:alpine
