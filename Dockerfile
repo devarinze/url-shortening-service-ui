@@ -6,4 +6,6 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-CMD ["npm", "start"]
+FROM nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./dist/tinyurl-ui /usr/share/nginx/html
