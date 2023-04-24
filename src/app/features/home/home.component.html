@@ -1,15 +1,21 @@
-<div class="h-full w-full flex page-wrapper">
-    <div class="w-full flex items-start md:block">
-        <div class="flex flex-col p-5 shadow-lg rounded bg-white z-10 mt-12 mx-5 md:mx-12 card-wrapper">
+<div class="h-full w-full flex flex-col lg:flex-row page-wrapper">
+    <div class="w-full lg:w-1/2 py-5 px-5">
+        <div class="flex flex-col p-5 shadow-lg rounded bg-white z-10 card-wrapper">
           <form [formGroup]="shortURLForm" nz-form>
             <app-form-group label="Original URL" [required]="true">
               <input class="form-input" formControlName="redirectLink" type="url" pattern="https://.*" [readOnly]="!canCreate"/>
               <app-form-error [control]="shortURLForm.get('redirectLink')" label="URL"></app-form-error>
             </app-form-group>
-            <app-form-group label="Custom alias" *ngIf="canCreate else generatedURLBlock">
-              <input class="form-input" formControlName="customURLKey" type="text"/>
-              <app-form-error [control]="shortURLForm.get('customURLKey')" label="Custom alias"></app-form-error>
-            </app-form-group>
+            <ng-template [ngIf]="canCreate" [ngIfElse]="generatedURLBlock">
+              <app-form-group label="Expiry Date" [required]="true">
+                <nz-date-picker class="form-input" [nzDisabledDate]="disablePast" formControlName="expiryDate"></nz-date-picker>
+                <app-form-error [control]="shortURLForm.get('expiryDate')" label="Expiry Date"></app-form-error>
+              </app-form-group>
+              <app-form-group label="Custom alias">
+                <input class="form-input" formControlName="urlKey" type="text"/>
+                <app-form-error [control]="shortURLForm.get('urlKey')" label="Custom alias"></app-form-error>
+              </app-form-group>
+            </ng-template>
             <ng-template #generatedURLBlock>
               <app-form-group label="Shortened URL">
                 <input class="form-input" formControlName="generatedLink" type="text" [readOnly]="true"/>
@@ -33,5 +39,8 @@
             </ng-template>
           </form>
         </div>
+    </div>
+    <div class="hidden lg:block lg:w-1/2 py-5 px-5">
+      <app-shorturl-list [events]="eventsSubject.asObservable()"></app-shorturl-list>
     </div>
 </div>

@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {PageSearch} from "../data/paging";
+import {ShortURL} from "../data/shorturl";
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +14,15 @@ export class ShortURLService {
   constructor(private http: HttpClient) {
   }
 
-  create(redirectLink: string, customURLKey: string): Observable<any> {
-    const config = {
-      params: {
-        redirectLink: redirectLink,
-        ...(customURLKey ? {customURLKey} : {}),
-      }
-    }
-    return this.http.get<any>(`${this.path}/create`, config);
+  public create(shortURL: ShortURL): Observable<any> {
+    return this.http.post<any>(`${this.path}/create`, shortURL);
   }
 
-  getRedirectLink(urlKey: string): Observable<any> {
+  public getAllShortURLS(body: PageSearch<ShortURL>): Observable<any> {
+    return this.http.post<any>(`${this.path}/all`, body);
+  }
+
+  public getRedirectLink(urlKey: string): Observable<any> {
     return this.http.get<any>(`${this.path}/redirect-link?urlKey=${encodeURIComponent(urlKey)}`);
   }
 }

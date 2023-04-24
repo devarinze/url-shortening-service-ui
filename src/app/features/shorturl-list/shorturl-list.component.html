@@ -1,0 +1,31 @@
+<ng-template [ngIf]="shortURLs.length">
+  <div class="h-full flex flex-col">
+    <h3 class="text-white text-lg mb-1">My URLs</h3>
+    <div class="flex-grow w-full overflow-auto">
+      <nz-table #basicTable [nzData]="shortURLs"
+                nzShowSizeChanger
+                [nzFrontPagination]="false"
+                [nzTotal]="total"
+                [(nzPageIndex)]="pageSearch.page.page"
+                [(nzPageSize)]="pageSearch.page.limit"
+                (nzPageIndexChange)="pagination()"
+                (nzPageSizeChange)="pagination(true)"
+      >
+        <thead>
+        <tr>
+          <th>Shortened URL</th>
+          <th>Expiry Date</th>
+          <th>Visits</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td class="max-w-md truncate">{{ env.urlPrefix }}/{{ data?.urlKey }}</td>
+          <td>{{ data?.expiryDate | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ data?.clicks }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</ng-template>

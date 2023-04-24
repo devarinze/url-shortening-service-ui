@@ -14,23 +14,31 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import {AuthGuard} from "../core/services/auth.guard";
+import {ShortURLListComponent} from './shorturl-list/shorturl-list.component';
+import {NzTableModule} from "ng-zorro-antd/table";
+import {NzDividerModule} from "ng-zorro-antd/divider";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    FeaturesComponent
+    FeaturesComponent,
+    ShortURLListComponent
   ],
-  imports: [
-    CommonModule,
-    FeaturesRoutingModule,
-    SharedModule,
-    ReactiveFormsModule,
-    ClipboardModule,
-    NzDropDownModule,
-    NzIconModule,
-    NzButtonModule,
-  ],
+    imports: [
+        CommonModule,
+        FeaturesRoutingModule,
+        SharedModule,
+        ReactiveFormsModule,
+        ClipboardModule,
+        NzDropDownModule,
+        NzIconModule,
+        NzButtonModule,
+        NzTableModule,
+        NzDividerModule,
+        NzDatePickerModule,
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
     { provide: NZ_I18N, useValue: en_GB },
